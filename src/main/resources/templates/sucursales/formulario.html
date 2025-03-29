@@ -9,7 +9,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Listado Roles</title>
+<title>Formulario Roles</title>
 
 <!-- Custom fonts for this template-->
 <link href="/resources/vendor/fontawesome-free/css/all.min.css"
@@ -167,31 +167,34 @@
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4">
 						<div class="container mt-5">
-							<h1>Roles</h1>
-							<a href="/roles/form" class="btn btn-primary mb-3">Nuevo Rol</a>
-							<table class="table table-striped">
-								<thead>
-									<tr>
-										<th>ID</th>
-										<th>Alias</th>
-										<th>Descripci&oacute;</th>
-										<th>Acciones</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr th:each="rol : ${roles}">
-										<td th:text="${rol.id}"></td>
-										<td th:text="${rol.alias}"></td>
-										<td th:text="${rol.descripcion}"></td>
-										<td><a th:href="@{/roles/editar/{id}(id=${rol.id})}"
-											class="btn btn-warning btn-sm">Editar</a>
-											<button th:data-id="${rol.id}" th:data-alias="${rol.alias}"
-												class="btn btn-danger btn-sm btn-eliminar">Eliminar</button></td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
+							<h1
+								th:text="${sucursal.id == null ? 'Nueva Sucursal' : 'Editar Sucursal'}"></h1>
+							<form th:action="@{/sucursales/guardar}" method="post">
+								<input type="hidden" id="id" name="id" th:value="${sucursal.id}">
 
+								<div class="form-group">
+									<label for="descripcion">Descripci&oacute;n</label> <input
+										type="text" id="descripcion" name="descripcion"
+										class="form-control" th:value="${sucursal.descripcion}"
+										required>
+								</div>
+
+								<div class="form-group">
+									<label for="direccion">Direcci&oacute;n</label> <input
+										type="text" id="direccion" name="direccion"
+										class="form-control" th:value="${sucursal.direccion}" required>
+								</div>
+
+								<div class="form-group">
+									<label for="telefono">Tel&eacute;fono</label> <input
+										type="text" id="telefono" name="telefono" class="form-control"
+										th:value="${sucursal.telefono}" required>
+								</div>
+
+								<button type="submit" class="btn btn-success">Guardar</button>
+								<a href="/sucursales" class="btn btn-secondary">Cancelar</a>
+							</form>
+						</div>
 
 
 					</div>
@@ -233,43 +236,6 @@
 
 	<!-- Custom scripts for all pages-->
 	<script src="/resources/js/sb-admin-2.min.js"></script>
-
-	<script>
-		$(document)
-				.ready(
-						function() {
-							$('.btn-eliminar')
-									.click(
-											function() {
-												const id = $(this).data('id');
-												const alias = $(this).data(
-														'alias');
-												if (confirm('¿Estás seguro de eliminar este rol ['
-														+ alias + '] ?')) {
-													$
-															.ajax({
-																url : '/roles/eliminar',
-																type : 'POST',
-																data : {
-																	id : id
-																},
-																success : function(
-																		response) {
-																	alert("Rol eliminado con éxito!!");
-																	location
-																			.reload(); // Recarga la página
-																},
-																error : function(
-																		xhr,
-																		status,
-																		error) {
-																	alert("Error al eliminar el rol");
-																}
-															});
-												}
-											});
-						});
-	</script>
 
 </body>
 
