@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Formulario de Moneda</title>
+    <link rel="stylesheet" th:href="@{/css/sb-admin-2.min.css}">
+</head>
+<body>
+<div class="container mt-4">
+    <h1 th:text="${moneda.id == null} ? 'Nueva Moneda' : 'Editar Moneda'"></h1>
+    <form th:action="@{/monedas/guardar}" th:object="${moneda}" method="post">
+        <div class="form-group">
+            <label for="nombre">Nombre de la Moneda</label>
+            <input type="text" th:field="*{nombre}" class="form-control" placeholder="Ej: Guaraní" required>
+        </div>
+        <div class="form-group">
+            <label for="simbolo">Símbolo</label>
+            <input type="text" th:field="*{simbolo}" class="form-control" placeholder="Ej: ₲" required>
+        </div>
+        <button type="submit" class="btn btn-success mt-2">Guardar</button>
+        <a href="/monedas" class="btn btn-secondary mt-2">Cancelar</a>
+    </form>
+</div>
+</body>
+</html>

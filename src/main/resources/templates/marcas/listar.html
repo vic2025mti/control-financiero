@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Marcas</title>
+</head>
+<body>
+<h1>Lista de Marcas</h1>
+
+<a href="/marcas/formulario">Nueva Marca</a>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Acciones</th>
+    </tr>
+    <tr th:each="marca : ${marcas}">
+        <td th:text="${marca.id}"></td>
+        <td th:text="${marca.nombre}"></td>
+        <td>
+            <a th:href="@{|/marcas/editar/${marca.id}|}">Editar</a> |
+            <a th:href="@{|/marcas/eliminar/${marca.id}|}">Eliminar</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
